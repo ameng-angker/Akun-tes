@@ -623,9 +623,9 @@ clash-meta
   ws-opts:
     path: "/?ed=2048"
     headers:
-      host: ${hostName}
+      host: ${hostName} 
 ---------------------------------------------------------------
-<b> HUB PENYEDIA LAYANAN KLIK DI BAWAH
+HUB PENYEDIA LAYANAN KLIK DI BAWAH
 
 WHATSAPP ID: https://wa.link/d982tb
 
