@@ -608,7 +608,6 @@ function getVLESSConfig(userID, hostName) {
 	const vlessMain6 = `vless://${userID}\u0040zoomcares.zoom.us:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#CONFERENSI`
 	return 
 
-const output = userIDArray.map((userID) => {
 		const วเลสMain = atob(pt) + '://' + userID + atob(at) + ${userID}\u0040${hostName}:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#${hostName}`;
 		const วเลสSec = atob(pt) + '://' + userID + atob(at) + ${userID}\u0040${hostName}:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#${hostName}`;
 		return 
