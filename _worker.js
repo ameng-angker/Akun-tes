@@ -665,15 +665,10 @@ clash-meta
 ################################################################
 HUB PENYEDIA LAYANAN KLIK DI BAWAH
 
-// HTML
-<button onclick="useCopyToClipboard('Here is copy text for you! (Example No. 1)')" class="btn btn-dark">
-  <em class="fas fa-copy"></em> Copy
-</button>
+let text = "Hello,World,How,Are,You";
+let result = text.split(",");
 
-// Javascript
-function useCopyToClipboard(text) {
-  navigator.clipboard.writeText(text)
-}
+console.log(result); // Output: ["Hello", "World", "How", "Are", "You"]
 
 WHATSAPP ID: 083117530527
     https://wa.link/d982tb
