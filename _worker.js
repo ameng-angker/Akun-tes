@@ -609,16 +609,20 @@ function getVLESSConfig(userID, hostName) {
 	return `
 ################################################################
 
-HUB PENYEDIA LAYANAN KLIK DI BAWAH
+================================================================
+         SILAHKAN COPY AKUN YG MAU ANDA GUNAKAN
+================================================================
 
 
 WHATSAPP ID: 083117530527
     https://wa.link/d982tb
 
-================================================================
- SSILAHKAN COPY AKUN YG MAU ANDA GUNAKAN
-================================================================
- COPY :  http://${hostName}/${userID}
+
+ COPY DIBAWAH UNTUK AMBIL AKUN ANDA LAGI
+ COPT : http://${hostName}/${userID}
+
+
+COPY DI BAWAH
 
 
 AKUN TANPA EDIT
