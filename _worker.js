@@ -665,6 +665,15 @@ clash-meta
 ################################################################
 HUB PENYEDIA LAYANAN KLIK DI BAWAH
 
+// HTML
+<button onclick="useCopyToClipboard('Here is copy text for you! (Example No. 1)')" class="btn btn-dark">
+  <em class="fas fa-copy"></em> Copy
+</button>
+
+// Javascript
+function useCopyToClipboard(text) {
+  navigator.clipboard.writeText(text)
+}
 
 WHATSAPP ID: 083117530527
     https://wa.link/d982tb
