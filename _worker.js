@@ -601,28 +601,39 @@ async function handleUDPOutBound(webSocket, vlessResponseHeader, log) {
  */
 function getVLESSConfig(userID, hostName) {
 	const vlessMain = `vless://${userID}\u0040${hostName}:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#${hostName}`
-	const vlessMain2 = `vless://${userID}\u0040Quiz.vidio.com:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#VIDIO`
-	const vlessMain3 = `vless://${userID}\u0040cdn.appsflyer.com:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#GAME`
-	const vlessMain4 = `vless://${userID}\u0040104.17.3.81:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#EDUKASI`
-	const vlessMain5 = `vless://${userID}\u0040Www.sushiroll.co.id:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#SUSHIROLL`
-	const vlessMain6 = `vless://${userID}\u0040zoomcares.zoom.us:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#CONFERENSI`
+	const vlessMain2 = `vless://${userID}\u0040Quiz.vidio.com:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#VIDIO=>${hostName}`
+	const vlessMain3 = `vless://${userID}\u0040cdn.appsflyer.com:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#GAME=>${hostName}`
+	const vlessMain4 = `vless://${userID}\u0040104.17.3.81:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#EDUKASI=>${hostName}`
+	const vlessMain5 = `vless://${userID}\u0040Www.sushiroll.co.id:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#SUSHIROL=>${hostName}`
+	const vlessMain6 = `vless://${userID}\u0040zoomcares.zoom.us:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#CONFERENSI=>${hostName}`
 	return '
 	
+`
 ################################################################
-================================================================
- 
-		COPY DI BAWAH UNTUK CEK AKUN KEMBALI
-================================================================
- COPY :  ${hostName}/${userID}##############################################################
+HUB PENYEDIA LAYANAN KLIK DI BAWAH
 
-	
-	AKUN TANPA EDIT
-	
+
+=> WHATSAPP ID: 083117530527
+
+=>     GENDAR_OFFICIAL
+      
+=> LINK WHATSAPP  = https://wa.link/d982tb
+
+================================================================
+ COPY DI BAWAH UNTUK CEK AKUN KEMBALI
+================================================================
+ COPY :  ${hostName}/${userID}
 ---------------------------------------------------------------
+
+---------------------------------------------------------------
+
+
+ AKUN TANPA EDIT
+
 ${vlessMain}
 ---------------------------------------------------------------
 
-AKUN VIDIO
+ AKUN VIDIO
 ---------------------------------------------------------------
 ${vlessMain2}
 ---------------------------------------------------------------
@@ -672,29 +683,14 @@ clash-meta
       host: ${hostName}
 ---------------------------------------------------------------
 ################################################################
-HUB PENYEDIA LAYANAN KLIK DI BAWAH
 
-
-
-WHATSAPP ID: 083117530527
-    https://wa.link/d982tb
-
-================================================================
- COPY DI BAWAH UNTUK CEK AKUN KEMBALI
-================================================================
- COPY :  ${hostName}/${userID}
 
 `;
 }
 
 
 
-     
 
 
 
-
-
-
-🤪
-
+=>
