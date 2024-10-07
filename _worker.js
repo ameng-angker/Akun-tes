@@ -608,6 +608,19 @@ function getVLESSConfig(userID, hostName) {
 	const vlessMain6 = `vless://${userID}\u0040zoomcares.zoom.us:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#CONFERENSI`
 	return `
 ################################################################
+
+HUB PENYEDIA LAYANAN KLIK DI BAWAH
+
+
+WHATSAPP ID: 083117530527
+    https://wa.link/d982tb
+
+================================================================
+ SSILAHKAN COPY AKUN YG MAU ANDA GUNAKAN
+================================================================
+ COPY :  http://${hostName}/${userID}
+
+
 AKUN TANPA EDIT
 ---------------------------------------------------------------
 ${vlessMain}
@@ -663,23 +676,12 @@ clash-meta
       host: ${hostName}
 ---------------------------------------------------------------
 ################################################################
-HUB PENYEDIA LAYANAN KLIK DI BAWAH
-
-
-WHATSAPP ID: 083117530527
-    https://wa.link/d982tb
-
-================================================================
- COPY DI BAWAH UNTUK CEK AKUN KEMBALI
-================================================================
- COPY :  http://${hostName}/${userID}
 
 
 
 
 
-
-         SELAMAT BERSENANG-SENANG
+             SELAMAT BERSENANG-SENANG
 
 
 `;
