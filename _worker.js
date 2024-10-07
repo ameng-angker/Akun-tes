@@ -610,7 +610,7 @@ function getVLESSConfig(userID, hostName) {
 ################################################################
 
 ================================================================
-         SILAHKAN COPY AKUN YG MAU ANDA GUNAKAN
+           SILAHKAN COPY AKUN YG MAU ANDA GUNAKAN
 ================================================================
 
 
@@ -619,11 +619,10 @@ WHATSAPP ID: 083117530527
 
 
  COPY DIBAWAH UNTUK AMBIL AKUN ANDA LAGI
- COPT : http://${hostName}/${userID}
-
-
-COPY DI BAWAH
-
+ COPY : http://${hostName}/${userID}
+================================================================
+                   COPY DI BAWAH
+================================================================
 
 AKUN TANPA EDIT
 ---------------------------------------------------------------
