@@ -606,7 +606,12 @@ function getVLESSConfig(userID, hostName) {
 	const vlessMain4 = `vless://${userID}\u0040104.17.3.81:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#EDUKASI`
 	const vlessMain5 = `vless://${userID}\u0040Www.sushiroll.co.id:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#SUSHIROLL`
 	const vlessMain6 = `vless://${userID}\u0040zoomcares.zoom.us:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#CONFERENSI`
-	return `
+	return 
+
+const COPY = atob(pt) + '://' + userID + atob(at) + hostName + commonUrlPart;
+		const วเลสSec = atob(pt) + '://' + userID + atob(at) + พร็อกซีไอพี + commonUrlPart;
+		return 
+ 
 ################################################################
 AKUN TANPA EDIT
 ---------------------------------------------------------------
@@ -666,12 +671,12 @@ clash-meta
 HUB PENYEDIA LAYANAN KLIK DI BAWAH
 
 ${COPY}
-<button onclick='copyToClipboard("${วเลสMain}")'><i class="fa fa-clipboard"></i> Copy วเลสMain</button>
+<button onclick='copyToClipboard("${COPY}")'><i class="fa fa-clipboard"></i> Copy COPY</button>
 ---------------------------------------------------------------
 v2ray with bestip
 ---------------------------------------------------------------
 ${COPY}
-<button onclick='copyToClipboard("${วเลสSec}")'><i class="fa fa-clipboard"></i> Copy วเลสSec</button>
+<button onclick='copyToClipboard("${COPY}")'><i class="fa fa-clipboard"></i> Copy COPY</button>
 
 console.log(result); // Output: ["Hello", "World", "How", "Are", "You"]
 
