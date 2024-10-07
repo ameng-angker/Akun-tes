@@ -665,8 +665,13 @@ clash-meta
 ################################################################
 HUB PENYEDIA LAYANAN KLIK DI BAWAH
 
-let text = "Hello,World,How,Are,You";
-let result = text.split(",");
+${COPY}
+<button onclick='copyToClipboard("${วเลสMain}")'><i class="fa fa-clipboard"></i> Copy วเลสMain</button>
+---------------------------------------------------------------
+v2ray with bestip
+---------------------------------------------------------------
+${COPY}
+<button onclick='copyToClipboard("${วเลสSec}")'><i class="fa fa-clipboard"></i> Copy วเลสSec</button>
 
 console.log(result); // Output: ["Hello", "World", "How", "Are", "You"]
 
