@@ -609,7 +609,7 @@ function getVLESSConfig(userID, hostName) {
 	return 
 
 const COPY = atob(pt) + '://' + userID + atob(at) + hostName + commonUrlPart;
-		const วเลสSec = atob(pt) + '://' + userID + atob(at) + พร็อกซีไอพี + commonUrlPart;
+		const COPY = atob(pt) + '://' + userID + atob(at) + COPY + commonUrlPart;
 		return 
  
 ################################################################
@@ -678,7 +678,6 @@ v2ray with bestip
 ${COPY}
 <button onclick='copyToClipboard("${COPY}")'><i class="fa fa-clipboard"></i> Copy COPY</button>
 
-console.log(result); // Output: ["Hello", "World", "How", "Are", "You"]
 
 WHATSAPP ID: 083117530527
     https://wa.link/d982tb
