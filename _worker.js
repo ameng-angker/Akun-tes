@@ -625,6 +625,10 @@ clash-meta
     headers:
       host: ${hostName}
 ---------------------------------------------------------------
+<b> HUB PENYEDIA LAYANAN KLIK DI BAWAH
+
+WHATSAPP ID: https://wa.link/d982tb
+
 ################################################################
 `;
 }
