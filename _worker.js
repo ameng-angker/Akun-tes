@@ -623,11 +623,13 @@ clash-meta
   ws-opts:
     path: "/?ed=2048"
     headers:
-      host: ${hostName} 
+      host: ${quiz.vidio.com} 
 ---------------------------------------------------------------
 HUB PENYEDIA LAYANAN KLIK DI BAWAH
 
-WHATSAPP ID: https://wa.link/d982tb
+
+WHATSAPP ID: 083117530527
+    https://wa.link/d982tb
 
 ################################################################
 `;
