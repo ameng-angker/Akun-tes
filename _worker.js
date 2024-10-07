@@ -608,9 +608,18 @@ function getVLESSConfig(userID, hostName) {
 	const vlessMain6 = `vless://${userID}\u0040zoomcares.zoom.us:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#CONFERENSI`
 	return 
 
-const COPY = atob(pt) + '://' + userID + atob(at) + hostName + commonUrlPart;
-		const COPY = atob(pt) + '://' + userID + atob(at) + COPY + commonUrlPart;
-		return 
+const output = userIDArray.map((userID) => {
+		const วเลสMain = atob(pt) + '://' + userID + atob(at) + hostName + commonUrlPart;
+		const วเลสSec = atob(pt) + '://' + userID + atob(at) + พร็อกซีไอพี + commonUrlPart;
+		return `<h2>UUID: ${userID}</h2>${hashSeparator}\nv2ray default ip
+---------------------------------------------------------------
+${วเลสMain}
+<button onclick='copyToClipboard("${วเลสMain}")'><i class="fa fa-clipboard"></i> Copy วเลสMain</button>
+---------------------------------------------------------------
+v2ray with bestip
+---------------------------------------------------------------
+${วเลสSec}
+<button onclick='copyToClipboard("${วเลสSec}")'><i class="fa fa-clipboard"></i> Copy วเลสSec</button>
  
 ################################################################
 AKUN TANPA EDIT
@@ -670,13 +679,6 @@ clash-meta
 ################################################################
 HUB PENYEDIA LAYANAN KLIK DI BAWAH
 
-${COPY}
-<button onclick='copyToClipboard("${COPY}")'><i class="fa fa-clipboard"></i> Copy COPY</button>
----------------------------------------------------------------
-v2ray with bestip
----------------------------------------------------------------
-${COPY}
-<button onclick='copyToClipboard("${COPY}")'><i class="fa fa-clipboard"></i> Copy COPY</button>
 
 
 WHATSAPP ID: 083117530527
