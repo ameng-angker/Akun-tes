@@ -606,22 +606,15 @@ function getVLESSConfig(userID, hostName) {
 	const vlessMain4 = `vless://${userID}\u0040104.17.3.81:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#EDUKASI`
 	const vlessMain5 = `vless://${userID}\u0040Www.sushiroll.co.id:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#SUSHIROLL`
 	const vlessMain6 = `vless://${userID}\u0040zoomcares.zoom.us:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#CONFERENSI`
-	return 
-
-		const วเลสMain = 
-		const วเลสSec = 
-		return 
----------------------------------------------------------------
-${วเลสMain}
-<button onclick='copyToClipboard("${วเลสMain}")'><i class="fa fa-clipboard"></i> Copy วเลสMain</button>
----------------------------------------------------------------
-v2ray with bestip
----------------------------------------------------------------
-${วเลสSec}
-<button onclick='copyToClipboard("${วเลสSec}")'><i class="fa fa-clipboard"></i> Copy วเลสSec</button>
+	return ================================================================
  
-################################################################
-AKUN TANPA EDIT
+		COPY DI BAWAH UNTUK CEK AKUN KEMBALI
+================================================================
+ COPY :  ${hostName}/${userID}##############################################################
+
+	
+	AKUN TANPA EDIT
+	
 ---------------------------------------------------------------
 ${vlessMain}
 ---------------------------------------------------------------
@@ -690,4 +683,15 @@ WHATSAPP ID: 083117530527
 
 `;
 }
+
+
+
+     
+
+
+
+
+
+
+🤪
 
