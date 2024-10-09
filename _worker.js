@@ -1,13 +1,15 @@
-// <!--GAMFC-->version base on commit 841ed4e9ff121dde0ed6a56ae800c2e6c4f66056, time is 2024-04-16 18:02:37 UTC<!--GAMFC-END-->.
+// <!--GAMFC-->version base on commit 43fad05dcdae3b723c53c226f8181fc5bd47223e, time is 2023-06-22 15:20:02 UTC<!--GAMFC-END-->.
 // @ts-ignore
 import { connect } from 'cloudflare:sockets';
 
 // How to generate your own UUID:
 // [Windows] Press "Win + R", input cmd and run:  Powershell -NoExit -Command "[guid]::NewGuid()"
-let userID = 'd342d11e-d424-4583-b36e-524ab1f0afa4';
+const userID = '621a4a66-5dd4-4a53-a01b-341ec87499bc';
 
-let proxyIP = '172.232.238.169';
-
+const cfTransparentProxy = {
+	http: { host: '', port: 8888 },
+	https: { host: '', port: 8889 },
+};
 
 if (!isValidUUID(userID)) {
 	throw new Error('uuid is not valid');
@@ -22,8 +24,6 @@ export default {
 	 */
 	async fetch(request, env, ctx) {
 		try {
-			userID = env.UUID || userID;
-			proxyIP = env.PROXYIP || proxyIP;
 			const upgradeHeader = request.headers.get('Upgrade');
 			if (!upgradeHeader || upgradeHeader !== 'websocket') {
 				const url = new URL(request.url);
@@ -50,8 +50,6 @@ export default {
 			return new Response(e.toString());
 		}
 	},
-};
-
 
 
 
