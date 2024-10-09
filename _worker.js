@@ -7,9 +7,6 @@ import { connect } from 'cloudflare:sockets';
 let userID = 'd342d11e-d424-4583-b36e-524ab1f0afa4';
 
 let proxyIP = '172.232.238.169';
-let proxyIP1 = '45.60.186.91';
-let proxyIP2 = '139.99.236.163';
-let proxyIP3 = '45.60.186.919';
 
 
 if (!isValidUUID(userID)) {
@@ -27,9 +24,6 @@ export default {
 		try {
 			userID = env.UUID || userID;
 			proxyIP = env.PROXYIP || proxyIP;
-			proxyIP = env.PROXYIP || proxyIP1;
-			proxyIP = env.PROXYIP || proxyIP2;
-			proxyIP = env.PROXYIP || proxyIP3;
 			const upgradeHeader = request.headers.get('Upgrade');
 			if (!upgradeHeader || upgradeHeader !== 'websocket') {
 				const url = new URL(request.url);
