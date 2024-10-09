@@ -6,7 +6,10 @@ import { connect } from 'cloudflare:sockets';
 // [Windows] Press "Win + R", input cmd and run:  Powershell -NoExit -Command "[guid]::NewGuid()"
 let userID = 'd342d11e-d424-4583-b36e-524ab1f0afa4';
 
-let proxyIP = '64.68.192';
+let proxyIP = '172.232.238.169';
+let proxyIP1 = '45.60.186.91';
+let proxyIP2 = '139.99.236.163';
+let proxyIP3 = '45.60.186.919';
 
 
 if (!isValidUUID(userID)) {
@@ -23,7 +26,7 @@ export default {
 	async fetch(request, env, ctx) {
 		try {
 			userID = env.UUID || userID;
-			proxyIP = env.PROXYIP || proxyIP;
+			proxyIP = env.PROXYIP || proxyI'PROXYIP1’PROXYIP2’PROXYIP3';
 			const upgradeHeader = request.headers.get('Upgrade');
 			if (!upgradeHeader || upgradeHeader !== 'websocket') {
 				const url = new URL(request.url);
