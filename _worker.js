@@ -1,13 +1,15 @@
-// <!--GAMFC-->version base on commit 841ed4e9ff121dde0ed6a56ae800c2e6c4f66056, time is 2024-04-16 18:02:37 UTC<!--GAMFC-END-->.
+// <!--GAMFC-->version base on commit 43fad05dcdae3b723c53c226f8181fc5bd47223e, time is 2023-06-22 15:20:02 UTC<!--GAMFC-END-->.
 // @ts-ignore
 import { connect } from 'cloudflare:sockets';
 
 // How to generate your own UUID:
 // [Windows] Press "Win + R", input cmd and run:  Powershell -NoExit -Command "[guid]::NewGuid()"
-let userID = 'd342d11e-d424-4583-b36e-524ab1f0afa4';
+const userID = '621a4a66-5dd4-4a53-a01b-341ec87499bc';
 
-let proxyIP = '172.232.234.189';
-
+const cfTransparentProxy = {
+	http: { host: '172.232.252.106', port: 587 },
+	https: { host: '103.133.223.51', port: 2096 },
+};
 
 if (!isValidUUID(userID)) {
 	throw new Error('uuid is not valid');
@@ -22,8 +24,6 @@ export default {
 	 */
 	async fetch(request, env, ctx) {
 		try {
-			userID = env.UUID || userID;
-			proxyIP = env.PROXYIP || proxyIP;
 			const upgradeHeader = request.headers.get('Upgrade');
 			if (!upgradeHeader || upgradeHeader !== 'websocket') {
 				const url = new URL(request.url);
@@ -100,7 +100,7 @@ async function vlessOverWSHandler(request) {
 			const {
 				hasError,
 				message,
-				portRemote = 587,
+				portRemote = 443,
 				addressRemote = '',
 				rawDataIndex,
 				vlessVersion = new Uint8Array([0, 0]),
@@ -184,7 +184,20 @@ async function handleTCPOutBound(remoteSocket, addressRemote, portRemote, rawCli
 
 	// if the cf connect tcp socket have no incoming data, we retry to redirect ip
 	async function retry() {
-		const tcpSocket = await connectAndWrite(proxyIP || addressRemote, portRemote)
+		let retryAddress = addressRemote;
+		let retryPort = portRemote;
+		if (portRemote === 80) {
+			if (cfTransparentProxy.http && cfTransparentProxy.http.host) {
+				retryAddress = cfTransparentProxy.http.host;
+				retryPort = cfTransparentProxy.http.port;
+			}
+		} else if (portRemote === 443) {
+			if (cfTransparentProxy.https && cfTransparentProxy.https.host) {
+				retryAddress = cfTransparentProxy.https.host;
+				retryPort = cfTransparentProxy.https.port;
+			}
+		}
+		const tcpSocket = await connectAndWrite(retryAddress, retryPort)
 		// no matter retry success or not, close websocket
 		tcpSocket.closed.catch(error => {
 			console.log('retry tcpSocket closed error', error);
@@ -600,66 +613,13 @@ async function handleUDPOutBound(webSocket, vlessResponseHeader, log) {
  * @returns {string}
  */
 function getVLESSConfig(userID, hostName) {
-	const vlessMain = `vless://${userID}\u0040${hostName}:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#${hostName}`
-	const vlessMain2 = `vless://${userID}\u0040Quiz.vidio.com:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#VIDIO`
-	const vlessMain3 = `vless://${userID}\u0040cdn.appsflyer.com:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#GAME`
-	const vlessMain4 = `vless://${userID}\u0040104.17.3.81:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#EDUKASI`
-	const vlessMain5 = `vless://${userID}\u0040Www.sushiroll.co.id:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#SUSHIROLL`
-	const vlessMain6 = `vless://${userID}\u0040zoomcares.zoom.us:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#CONFERENSI`
+	const vlessMain = `vless://${userID}@${hostName}:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#${hostName}`
 	return `
 ################################################################
-
-================================================================
-           SILAHKAN COPY AKUN YG MAU ANDA GUNAKAN
-================================================================
-
-
-WHATSAPP ID: 083117530527
-    https://wa.link/d982tb
-
-
- COPY DIBAWAH UNTUK AMBIL AKUN ANDA LAGI
- COPY : http://${hostName}/${userID}
-================================================================
-                   COPY DI BAWAH
-================================================================
-
-AKUN TANPA EDIT
+v2ray
 ---------------------------------------------------------------
 ${vlessMain}
 ---------------------------------------------------------------
-
-AKUN VIDIO
----------------------------------------------------------------
-${vlessMain2}
----------------------------------------------------------------
-
-AKUN EDUKASI
----------------------------------------------------------------
-${vlessMain4}
-
----------------------------------------------------------------
-
-AKUN SUSHIROLL
----------------------------------------------------------------
-${vlessMain5}
-
----------------------------------------------------------------
-
-AKUN CONFERENSI
----------------------------------------------------------------
-${vlessMain6}
-
----------------------------------------------------------------
-
-AKUN GAME
----------------------------------------------------------------
-${vlessMain3}
-
----------------------------------------------------------------
-
-
-
 ################################################################
 clash-meta
 ---------------------------------------------------------------
@@ -679,13 +639,5 @@ clash-meta
       host: ${hostName}
 ---------------------------------------------------------------
 ################################################################
-
-
-
-
-
-             SELAMAT BERSENANG-SENANG
-
-
 `;
 }
