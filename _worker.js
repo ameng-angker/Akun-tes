@@ -1,32 +1,36 @@
+// <!--GAMFC-->version base on commit 841ed4e9ff121dde0ed6a56ae800c2e6c4f66056, time is 2024-04-16 18:02:37 UTC<!--GAMFC-END-->.
+// @ts-ignore
 import { connect } from 'cloudflare:sockets';
 
+// How to generate your own UUID:
+// [Windows] Press "Win + R", input cmd and run:  Powershell -NoExit -Command "[guid]::NewGuid()"
 let userID = 'd342d11e-d424-4583-b36e-524ab1f0afa4';
-let proxyIPs = ['172.232.238.169:587'];
-let proxyIP = proxyIPs[Math.floor(Math.random() * proxyIPs.length)];
-let proxyPort = proxyIP.includes(':') ? proxyIP.split(':')[1] : '443';
+
+let proxyIP = '172.232.238.169';
+
 
 if (!isValidUUID(userID)) {
 	throw new Error('uuid is not valid');
 }
 
 export default {
+	/**
+	 * @param {import("@cloudflare/workers-types").Request} request
+	 * @param {{UUID: string, PROXYIP: string}} env
+	 * @param {import("@cloudflare/workers-types").ExecutionContext} ctx
+	 * @returns {Promise<Response>}
+	 */
 	async fetch(request, env, ctx) {
 		try {
-			const { UUID, PROXYIP } = env;
-			userID = UUID || userID;
-			if (PROXYIP) {
-				[proxyIP, proxyPort = '443'] = PROXYIP.split(':');
-			} else {
-				proxyPort = proxyIP.includes(':') ? proxyIP.split(':')[1] : '443';
-				proxyIP = proxyIP.split(':')[0];
-			}
+			userID = env.UUID || userID;
+			proxyIP = env.PROXYIP || proxyIP;
 			const upgradeHeader = request.headers.get('Upgrade');
 			if (!upgradeHeader || upgradeHeader !== 'websocket') {
 				const url = new URL(request.url);
 				switch (url.pathname) {
 					case '/':
 						return new Response(JSON.stringify(request.cf), { status: 200 });
-					case `/cf`: {
+					case `/${userID}`: {
 						const vlessConfig = getVLESSConfig(userID, request.headers.get('Host'));
 						return new Response(`${vlessConfig}`, {
 							status: 200,
@@ -42,13 +46,23 @@ export default {
 				return await vlessOverWSHandler(request);
 			}
 		} catch (err) {
-			let e = err;
+			/** @type {Error} */ let e = err;
 			return new Response(e.toString());
 		}
 	},
 };
 
+
+
+
+/**
+ * 
+ * @param {import("@cloudflare/workers-types").Request} request
+ */
 async function vlessOverWSHandler(request) {
+
+	/** @type {import("@cloudflare/workers-types").WebSocket[]} */
+	// @ts-ignore
 	const webSocketPair = new WebSocketPair();
 	const [client, webSocket] = Object.values(webSocketPair);
 
@@ -56,19 +70,21 @@ async function vlessOverWSHandler(request) {
 
 	let address = '';
 	let portWithRandomLog = '';
-	const log = (info, event) => {
+	const log = (/** @type {string} */ info, /** @type {string | undefined} */ event) => {
 		console.log(`[${address}:${portWithRandomLog}] ${info}`, event || '');
 	};
 	const earlyDataHeader = request.headers.get('sec-websocket-protocol') || '';
 
 	const readableWebSocketStream = makeReadableWebSocketStream(webSocket, earlyDataHeader, log);
 
+	/** @type {{ value: import("@cloudflare/workers-types").Socket | null}}*/
 	let remoteSocketWapper = {
 		value: null,
 	};
 	let udpStreamWrite = null;
 	let isDns = false;
 
+	// ws --> remote
 	readableWebSocketStream.pipeTo(new WritableStream({
 		async write(chunk, controller) {
 			if (isDns && udpStreamWrite) {
@@ -109,7 +125,7 @@ async function vlessOverWSHandler(request) {
 					return;
 				}
 			}
-			// ["version", "附加信息长度 N"]
+			// ["version", "éå ä¿¡æ¯é¿åº¦ N"]
 			const vlessResponseHeader = new Uint8Array([vlessVersion[0], 0]);
 			const rawClientData = chunk.slice(rawDataIndex);
 
@@ -585,12 +601,49 @@ async function handleUDPOutBound(webSocket, vlessResponseHeader, log) {
  */
 function getVLESSConfig(userID, hostName) {
 	const vlessMain = `vless://${userID}\u0040${hostName}:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#${hostName}`
+	const vlessMain2 = `vless://${userID}\u0040Quiz.vidio.com:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#VIDIO`
+	const vlessMain3 = `vless://${userID}\u0040cdn.appsflyer.com:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#GAME`
+	const vlessMain4 = `vless://${userID}\u0040104.17.3.81:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#EDUKASI`
+	const vlessMain5 = `vless://${userID}\u0040Www.sushiroll.co.id:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#SUSHIROLL`
+	const vlessMain6 = `vless://${userID}\u0040zoomcares.zoom.us:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#CONFERENSI`
 	return `
 ################################################################
-v2ray
+AKUN TANPA EDIT
 ---------------------------------------------------------------
 ${vlessMain}
 ---------------------------------------------------------------
+
+AKUN VIDIO
+---------------------------------------------------------------
+${vlessMain2}
+---------------------------------------------------------------
+
+AKUN EDUKASI
+---------------------------------------------------------------
+${vlessMain4}
+
+---------------------------------------------------------------
+
+AKUN SUSHIROLL
+---------------------------------------------------------------
+${vlessMain5}
+
+---------------------------------------------------------------
+
+AKUN CONFERENSI
+---------------------------------------------------------------
+${vlessMain6}
+
+---------------------------------------------------------------
+
+AKUN GAME
+---------------------------------------------------------------
+${vlessMain3}
+
+---------------------------------------------------------------
+
+
+
 ################################################################
 clash-meta
 ---------------------------------------------------------------
@@ -610,6 +663,17 @@ clash-meta
       host: ${hostName}
 ---------------------------------------------------------------
 ################################################################
+HUB PENYEDIA LAYANAN KLIK DI BAWAH
+
+
+WHATSAPP ID: 083117530527
+    https://wa.link/d982tb
+
+================================================================
+ COPY DI BAWAH UNTUK CEK AKUN KEMBALI
+================================================================
+ COPY :  ${hostName}/${userID}
+
 `;
 }
 
