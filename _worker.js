@@ -5,6 +5,11 @@ let proxyIPs = ['103.180.161.123:587'];
 let proxyIP = proxyIPs[Math.floor(Math.random() * proxyIPs.length)];
 let proxyPort = proxyIP.includes(':') ? proxyIP.split(':')[1] : '443';
 
+let userID = 'd342d11e-d424-4583-b36e-524ab1f0afa4';
+let proxyIPs = ['103.180.161.123:587'];
+let proxyIP = proxyIPs[Math.floor(Math.random() * proxyIPs.length)];
+let proxyPort = proxyIP.includes(':') ? proxyIP.split(':')[1] : '443';
+
 if (!isValidUUID(userID)) {
 	throw new Error('uuid is not valid');
 }
