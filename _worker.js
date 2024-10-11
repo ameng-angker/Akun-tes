@@ -2,28 +2,26 @@
 // @ts-ignore
 import { connect } from 'cloudflare:sockets';
 
-// How to generate your own UUID:
-// [Windows] Press "Win + R", input cmd and run:  Powershell -NoExit -Command "[guid]::NewGuid()"
 let userID = 'd342d11e-d424-4583-b36e-524ab1f0afa4';
-
-let proxyIP = '172.232.238.169';
-
+let proxyIPs = ['103.180.161.123:587'];
+let proxyIP = proxyIPs[Math.floor(Math.random() * proxyIPs.length)];
+let proxyPort = proxyIP.includes(':') ? proxyIP.split(':')[1] : '443';
 
 if (!isValidUUID(userID)) {
 	throw new Error('uuid is not valid');
 }
 
 export default {
-	/**
-	 * @param {import("@cloudflare/workers-types").Request} request
-	 * @param {{UUID: string, PROXYIP: string}} env
-	 * @param {import("@cloudflare/workers-types").ExecutionContext} ctx
-	 * @returns {Promise<Response>}
-	 */
 	async fetch(request, env, ctx) {
 		try {
-			userID = env.UUID || userID;
-			proxyIP = env.PROXYIP || proxyIP;
+			const { UUID, PROXYIP } = env;
+			userID = UUID || userID;
+			if (PROXYIP) {
+				[proxyIP, proxyPort = '443'] = PROXYIP.split(':');
+			} else {
+				proxyPort = proxyIP.includes(':') ? proxyIP.split(':')[1] : '443';
+				proxyIP = proxyIP.split(':')[0];
+			}
 			const upgradeHeader = request.headers.get('Upgrade');
 			if (!upgradeHeader || upgradeHeader !== 'websocket') {
 				const url = new URL(request.url);
