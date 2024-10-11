@@ -6,31 +6,25 @@ let proxyIP = proxyIPs[Math.floor(Math.random() * proxyIPs.length)];
 let proxyPort = proxyIP.includes(':') ? proxyIP.split(':')[1] : '443';
 
 if (!isValidUUID(userID)) {
-	throw new Error('uuid is invalid');
+	throw new Error('uuid is not valid');
 }
 
 export default {
-	/**
-	 * @param {import("@cloudflare/workers-types").Request} request
-	 * @param {{UUID: string, พร็อกซีไอพี: string, DNS_RESOLVER_URL: string, NODE_ID: int, API_HOST: string, API_TOKEN: string}} env
-	 * @param {import("@cloudflare/workers-types").ExecutionContext} ctx
-	 * @returns {Promise<Response>}
-	 */
 	async fetch(request, env, ctx) {
-		// uuid_validator(request);
 		try {
-			userID = env.UUID || userID;
-			พร็อกซีไอพี = env.พร็อกซีไอพี || พร็อกซีไอพี;
-			dohURL = env.DNS_RESOLVER_URL || dohURL;
-			let userID_Path = userID;
-			if (userID.includes(',')) {
-				userID_Path = userID.split(',')[0];
+			const { UUID, PROXYIP } = env;
+			userID = UUID || userID;
+			if (PROXYIP) {
+				[proxyIP, proxyPort = '443'] = PROXYIP.split(':');
+			} else {
+				proxyPort = proxyIP.includes(':') ? proxyIP.split(':')[1] : '443';
+				proxyIP = proxyIP.split(':')[0];
 			}
 			const upgradeHeader = request.headers.get('Upgrade');
 			if (!upgradeHeader || upgradeHeader !== 'websocket') {
 				const url = new URL(request.url);
 				switch (url.pathname) {
-					case `/cf`: {
+					case '/':
 						return new Response(JSON.stringify(request.cf, null, 4), {
 							status: 200,
 							headers: {
