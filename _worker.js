@@ -2,33 +2,35 @@
 // @ts-ignore
 import { connect } from 'cloudflare:sockets';
 
+// How to generate your own UUID:
+// [Windows] Press "Win + R", input cmd and run:  Powershell -NoExit -Command "[guid]::NewGuid()"
 let userID = 'd342d11e-d424-4583-b36e-524ab1f0afa4';
-let proxyIPs = ['103.180.161.123:587'];
-let proxyIP = proxyIPs[Math.floor(Math.random() * proxyIPs.length)];
-let proxyPort = proxyIP.includes(':') ? proxyIP.split(':')[1] : '443';
+
+let proxyIP = '172.232.238.169';
+
 
 if (!isValidUUID(userID)) {
 	throw new Error('uuid is not valid');
 }
 
 export default {
+	/**
+	 * @param {import("@cloudflare/workers-types").Request} request
+	 * @param {{UUID: string, PROXYIP: string}} env
+	 * @param {import("@cloudflare/workers-types").ExecutionContext} ctx
+	 * @returns {Promise<Response>}
+	 */
 	async fetch(request, env, ctx) {
 		try {
-			const { UUID, PROXYIP } = env;
-			userID = UUID || userID;
-			if (PROXYIP) {
-				[proxyIP, proxyPort = '443'] = PROXYIP.split(':');
-			} else {
-				proxyPort = proxyIP.includes(':') ? proxyIP.split(':')[1] : '443';
-				proxyIP = proxyIP.split(':')[0];
-			}
+			userID = env.UUID || userID;
+			proxyIP = env.PROXYIP || proxyIP;
 			const upgradeHeader = request.headers.get('Upgrade');
 			if (!upgradeHeader || upgradeHeader !== 'websocket') {
 				const url = new URL(request.url);
 				switch (url.pathname) {
 					case '/':
 						return new Response(JSON.stringify(request.cf), { status: 200 });
-					case `/cf`: {
+					case `/${userID}`: {
 						const vlessConfig = getVLESSConfig(userID, request.headers.get('Host'));
 						return new Response(`${vlessConfig}`, {
 							status: 200,
@@ -44,13 +46,23 @@ export default {
 				return await vlessOverWSHandler(request);
 			}
 		} catch (err) {
-			let e = err;
+			/** @type {Error} */ let e = err;
 			return new Response(e.toString());
 		}
 	},
 };
 
+
+
+
+/**
+ * 
+ * @param {import("@cloudflare/workers-types").Request} request
+ */
 async function vlessOverWSHandler(request) {
+
+	/** @type {import("@cloudflare/workers-types").WebSocket[]} */
+	// @ts-ignore
 	const webSocketPair = new WebSocketPair();
 	const [client, webSocket] = Object.values(webSocketPair);
 
@@ -58,19 +70,21 @@ async function vlessOverWSHandler(request) {
 
 	let address = '';
 	let portWithRandomLog = '';
-	const log = (info, event) => {
+	const log = (/** @type {string} */ info, /** @type {string | undefined} */ event) => {
 		console.log(`[${address}:${portWithRandomLog}] ${info}`, event || '');
 	};
 	const earlyDataHeader = request.headers.get('sec-websocket-protocol') || '';
 
 	const readableWebSocketStream = makeReadableWebSocketStream(webSocket, earlyDataHeader, log);
 
+	/** @type {{ value: import("@cloudflare/workers-types").Socket | null}}*/
 	let remoteSocketWapper = {
 		value: null,
 	};
 	let udpStreamWrite = null;
 	let isDns = false;
 
+	// ws --> remote
 	readableWebSocketStream.pipeTo(new WritableStream({
 		async write(chunk, controller) {
 			if (isDns && udpStreamWrite) {
