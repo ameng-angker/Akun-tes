@@ -1,9 +1,14 @@
-// <!--GAMFC-->version base on commit 841ed4e9ff121dde0ed6a56ae800c2e6c4f66056, time is 2024-04-16 18:02:37 UTC<!--GAMFC-END-->.
-// @ts-ignore
-//ahhhhhhhhh
 import { connect } from 'cloudflare:sockets';
-let proxyIP;
-let proxyPort;
+
+let userID = 'd342d11e-d424-4583-b36e-524ab1f0afa4';
+let proxyIPs = ['103.180.161.123:587'];
+let proxyIP = proxyIPs[Math.floor(Math.random() * proxyIPs.length)];
+let proxyPort = proxyIP.includes(':') ? proxyIP.split(':')[1] : '443';
+
+if (!isValidUUID(userID)) {
+	throw new Error('uuid is not valid');
+}
+
 export default {
   async fetch(request, ctx) {
     try {
