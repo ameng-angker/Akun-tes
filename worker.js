@@ -1,7 +1,7 @@
-const servervless = 'cfwaio.proxybox.us.kg';
-const servertrojan = 'cfwaio.proxybox.us.kg';
-const passuid = 'cfwaio-proxybox-uskg';
-const TELEGRAM_BOT_TOKEN = '7266350365:AAH473dpm-MoTRk90VooODUM-7qAEW_pfWY';
+const servervless = 'ari-andika.site';
+const servertrojan = 'ari-andika.site';
+const passuid = 'ari-andika.site';
+const TELEGRAM_BOT_TOKEN = '7938088243:AAFv5Ffi3rEAUO6XD160sB4LE3H9SAEx6F8';
 
 addEventListener('fetch', event => {
   event.respondWith(handleRequest(event.request))
